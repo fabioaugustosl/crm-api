@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +27,20 @@ import br.com.virtz.cfc.contantes.EnumFormaContato;
 @Entity
 @Table(name = "contatocliente")
 @XmlRootElement
+@NamedQueries({
+	@NamedQuery(name = "ContatoComCliente.recuperarPorApp", 
+			query = "SELECT ct FROM ContatoComCliente ct "
+					+ " WHERE ct.aplicacao.id = :idAplicacao"),
+	@NamedQuery(name = "ContatoComCliente.recuperarPorChaveApp", 
+			query = "SELECT ct FROM ContatoComCliente ct "
+					+ " WHERE ct.aplicacao.chave = :chaveAplicacao"),
+	@NamedQuery(name = "ContatoComCliente.recuperarPorId", 
+			query = "SELECT ct FROM ContatoComCliente ct "
+					+ " WHERE ct.id = :idContato"),
+	@NamedQuery(name = "ContatoComCliente.recuperarPorChave", 
+			query = "SELECT ct FROM ContatoComCliente ct "
+					+ " WHERE ct.chave = :chaveContato")
+})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ContatoComCliente extends Entidade {
 

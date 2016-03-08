@@ -15,7 +15,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.ws.rs.FormParam;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -33,8 +32,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 			query = "SELECT ac FROM AcordoComCliente ac "
 					+ " JOIN ac.cliente cli"
 					+ " JOIN ac.aplicacao ap "
-					+ " WHERE cli.sigla = :siglaCliente AND ap.sigla = :siglaAplicacao "
-					+ " ORDER BY ac.id DESC ")
+					+ " WHERE cli.chave = :chaveCliente AND ap.chave = :chaveAplicacao "
+					+ " ORDER BY ac.id DESC "),
+	@NamedQuery(name = "AcordoComCliente.recuperarPorChaveClienteEChaveLivre", 
+			query = "SELECT cli FROM AcordoComCliente cli "
+						+ " WHERE cli.cliente.chave = :chaveCliente AND cli.chaveLivre = :chaveLivre "
+						+ " ORDER BY cli.id DESC"),
+	@NamedQuery(name = "AcordoComCliente.recuperarPorChaveProdutoServicoEClienteApp", 
+			query = "SELECT cli FROM AcordoComCliente cli "
+						+ " JOIN cli.aplicacao app "
+						+ " JOIN cli.cliente c"
+						+ " JOIN cli.podutoServico ps "
+						+ " WHERE app.chave = :chaveAplicacao AND c.chave = :chaveCliente AND ps.chave = :chaveProdutoServico "
+						+ " ORDER BY cli.id DESC"),
 })
 public class AcordoComCliente extends Entidade {
 

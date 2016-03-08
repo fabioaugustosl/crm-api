@@ -16,4 +16,13 @@ public class FormaPagamentoDAOImpl extends DAO<FormaPagamento> implements FormaP
 		return qry.getResultList();
 	}
 
+	
+	@Override
+	public List<FormaPagamento> recuperarPorChaveAplicacao(Long chaveAplicacao) {
+		Query qry = getEntityManager().createNamedQuery("FormaPagamento.recuperarPorChaveApp");
+		qry.setParameter("chaveAplicacao", chaveAplicacao);
+		return qry.getResultList();
+	}
+
+	
 }

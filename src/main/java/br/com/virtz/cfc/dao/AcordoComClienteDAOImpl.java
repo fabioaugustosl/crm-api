@@ -17,10 +17,10 @@ public class AcordoComClienteDAOImpl extends DAO<AcordoComCliente> implements Ac
 	}
 
 	@Override
-	public List<AcordoComCliente> recuperarPorCliente(String siglaCliente,String siglaAplicacao) {
+	public List<AcordoComCliente> recuperarPorCliente(String siglaCliente, String chaveAplicacao) {
 		Query qry = getEntityManager().createNamedQuery("AcordoComCliente.recuperarPorChaveApp");
 		qry.setParameter("siglaCliente", siglaCliente);
-		qry.setParameter("siglaAplicacao", siglaAplicacao);
+		qry.setParameter("chaveAplicacao", chaveAplicacao);
 		return qry.getResultList();
 	}
 

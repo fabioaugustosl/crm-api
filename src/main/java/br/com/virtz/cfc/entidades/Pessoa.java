@@ -13,20 +13,37 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.ws.rs.FormParam;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-import org.hibernate.annotations.ManyToAny;
-
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@NamedQueries({
+	@NamedQuery(name = "Pessoa.recuperarPorChave", 
+			query = "SELECT cli FROM Pessoa cli "
+					+ " WHERE cli.chave = :chave"),
+	@NamedQuery(name = "Pessoa.recuperarPorEmail", 
+			query = "SELECT cli FROM Pessoa cli "
+					+ " WHERE cli.email = :email"),
+	@NamedQuery(name = "Pessoa.recuperarPorChaveApp", 
+			query = "SELECT cli FROM Pessoa cli "
+					+ " JOIN cli.aplicacao ap "
+					+ " WHERE  ap.chave = :chaveAplicacao "
+					+ " ORDER BY cli.id DESC "),
+	@NamedQuery(name = "Pessoa.recuperarClientePorChaveEApp", 
+			query = "SELECT cli FROM Pessoa cli "
+					+ " JOIN cli.aplicacao ap "
+					+ " WHERE cli.chave = :chaveCliente ap.chave = :chaveAplicacao ")
+})
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Pessoa extends Entidade implements Serializable {
+public class Pessoa extends Entidade implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -47,8 +64,8 @@ public abstract class Pessoa extends Entidade implements Serializable {
 	/**
 	 * Usado para facilitar a identificação do cliente/pessoas pelo cliente da API. Essa sigla deve ser única por aplicação.
 	 */
-	@Column(name="sigla", length=20, nullable=false)
-	private String sigla;
+	@Column(name="chave", length=20, nullable=false)
+	private String chave;
 	
 	@Column(name="email", length=150)
 	private String email;
@@ -62,6 +79,10 @@ public abstract class Pessoa extends Entidade implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idEndereco")
 	private Endereco endereco;
+	
+	@ManyToOne
+	@JoinColumn(name="idAplicacao")
+	private Aplicacao aplicacao;
 	
 	
 	public Long getId() {
@@ -120,12 +141,20 @@ public abstract class Pessoa extends Entidade implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public String getSigla() {
-		return sigla;
+	public String getChave() {
+		return chave;
 	}
 
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
+	public void setChave(String chave) {
+		this.chave = chave;
+	}
+
+	public Aplicacao getAplicacao() {
+		return aplicacao;
+	}
+
+	public void setAplicacao(Aplicacao aplicacao) {
+		this.aplicacao = aplicacao;
 	}
 	
 	

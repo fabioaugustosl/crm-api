@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -20,8 +22,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name="empresa")
+@Table(name="aplicacao")
 @XmlRootElement
+@NamedQueries({
+	@NamedQuery(name = "Aplicacao.recuperarPorChave", 
+			query = "SELECT app FROM Aplicacao app "
+					+ " WHERE app.chave = :chaveAplicacao ")
+})
+
 public class Aplicacao extends Entidade {
 	
 	@Id
@@ -33,6 +41,11 @@ public class Aplicacao extends Entidade {
 	@Column(name="nome", length=60, nullable=false)
 	@FormParam("nome")
 	private String nome;
+	
+	@Column(name="chave", length=20, nullable=false)
+	@FormParam("chave")
+	private String chave;
+	
 	
 	@Column(name="email", length=150)
 	@FormParam("email")

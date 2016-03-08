@@ -21,7 +21,13 @@ import org.jboss.resteasy.spi.StringConverter;
 @NamedQueries({
 	@NamedQuery(name = "FormaPagamento.recuperarPorApp", 
 			query = "SELECT fp FROM FormaPagamento fp "
-					+ " WHERE fp.aplicacao.id = :idAplicacao") 
+					+ " WHERE fp.aplicacao.id = :idAplicacao"),
+	@NamedQuery(name = "FormaPagamento.recuperarPorChaveApp", 
+			query = "SELECT fp FROM FormaPagamento fp "
+					+ " WHERE fp.aplicacao.chave = :chaveAplicacao"),
+	@NamedQuery(name = "FormaPagamento.recuperarPorId", 
+			query = "SELECT fp FROM FormaPagamento fp "
+					+ " WHERE fp.id = :idFormaPagamento")
 })
 @XmlRootElement
 public class FormaPagamento extends Entidade implements Serializable, StringConverter<FormaPagamento> {

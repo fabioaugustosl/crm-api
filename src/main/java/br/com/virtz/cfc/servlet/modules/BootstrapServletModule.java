@@ -32,7 +32,7 @@ public class BootstrapServletModule extends ServletModule {
 		install(new BootstrapPropertiesModule());
 		
 		// Initialize Persistence JPA Unit of Work if present
-		install(new JpaPersistModule("cfcDS"));
+		install(new JpaPersistModule("crmDS"));
 		
 		// Initialize Apache Shiro if present
 		install(new BootstrapShiroModule(getServletContext()));

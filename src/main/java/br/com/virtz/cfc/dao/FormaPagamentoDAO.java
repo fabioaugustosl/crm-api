@@ -10,5 +10,7 @@ import com.google.inject.ImplementedBy;
 public interface FormaPagamentoDAO extends CrudDAO<FormaPagamento>   {
 
 	public List<FormaPagamento> recuperarPorAplicacao(Long idAplicacao);
+	public List<FormaPagamento> recuperarPorChaveAplicacao(Long chaveAplicacao);
+	public FormaPagamento recuperarPorId(Long idFormaPagamento);
 	
 }
