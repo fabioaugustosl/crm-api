@@ -36,10 +36,7 @@ import br.com.virtz.cfc.contantes.EnumFormaContato;
 					+ " WHERE ct.aplicacao.chave = :chaveAplicacao"),
 	@NamedQuery(name = "ContatoComCliente.recuperarPorId", 
 			query = "SELECT ct FROM ContatoComCliente ct "
-					+ " WHERE ct.id = :idContato"),
-	@NamedQuery(name = "ContatoComCliente.recuperarPorChave", 
-			query = "SELECT ct FROM ContatoComCliente ct "
-					+ " WHERE ct.chave = :chaveContato")
+					+ " WHERE ct.id = :idContato")
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ContatoComCliente extends Entidade {

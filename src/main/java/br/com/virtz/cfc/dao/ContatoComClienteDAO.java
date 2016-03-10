@@ -11,6 +11,5 @@ public interface ContatoComClienteDAO extends CrudDAO<ContatoComCliente>   {
 
 	public List<ContatoComCliente> recuperarPorAplicacao(Long idAplicacao);
 	public List<ContatoComCliente> recuperarPorChaveAplicacao(Long chaveAplicacao);
-	public ContatoComCliente recuperarPorChave(String chaveFormaPagamento);
 	
 }

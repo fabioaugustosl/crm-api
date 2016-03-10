@@ -23,16 +23,5 @@ public class ContatoComClienteDAOImpl extends DAO<ContatoComCliente> implements 
 		return qry.getResultList();
 	}
 
-	@Override
-	public ContatoComCliente recuperarPorChave(String chaveContato) {
-		Query qry = getEntityManager().createNamedQuery("ContatoComCliente.recuperarPorChave");
-		qry.setParameter("chaveContato", chaveContato);
-		List<ContatoComCliente> lista = qry.getResultList();
-		if(lista != null && !lista.isEmpty()){
-			return lista.get(0);
-		}
-		return null;
-	}
-
-	
+		
 }

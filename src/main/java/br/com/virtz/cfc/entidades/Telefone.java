@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 import org.jboss.resteasy.spi.StringConverter;
@@ -35,6 +37,10 @@ public class Telefone extends Entidade implements Serializable, StringConverter<
 	@Enumerated(EnumType.STRING)
 	private EnumTipoTelefone tipoTelefone;
 	
+	
+	@ManyToOne
+	@JoinColumn(name="idPessoa")
+	private Pessoa pessoa;
 	
 	@Override
 	public Long getId() {
@@ -80,5 +86,14 @@ public class Telefone extends Entidade implements Serializable, StringConverter<
 		}
 		return null;
 	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+	
 		
 }

@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 	@NamedQuery(name = "Pessoa.recuperarClientePorChaveEApp", 
 			query = "SELECT cli FROM Pessoa cli "
 					+ " JOIN cli.aplicacao ap "
-					+ " WHERE cli.chave = :chaveCliente ap.chave = :chaveAplicacao ")
+					+ " WHERE cli.chave = :chaveCliente AND ap.chave = :chaveAplicacao ")
 })
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -51,11 +51,9 @@ public class Pessoa extends Entidade implements Serializable {
 	@Id
     @GeneratedValue(strategy=GenerationType.TABLE)
     @Column(nullable=false, unique=true)
-	@FormParam("id")
 	private Long id;
 	
 	@Column(name="nome", length=60, nullable=false)
-	@FormParam("nome")
 	private String nome;
 	
 	@Column(name="nomenome", length=100)
