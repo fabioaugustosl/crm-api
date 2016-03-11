@@ -1,8 +1,17 @@
 package br.com.virtz.cfc.rest;
 
 import java.security.InvalidParameterException;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,6 +24,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.Form;
 
+import br.com.virtz.cfc.contantes.EnumFormaContato;
 import br.com.virtz.cfc.dao.AcordoComClienteDAO;
 import br.com.virtz.cfc.dao.AplicacaoDAO;
 import br.com.virtz.cfc.dao.ClienteDAO;
@@ -48,14 +58,6 @@ public class ContatoClienteService {
 	
 	
 	
-/*	@GET
-	@Path("/listarPorClienteApp/{chaveCliente}/{chaveApp}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<ContatoComCliente> listarContatosDoClientePorApp(@PathParam("chaveCliente") String chaveCliente, @PathParam("chaveApp") String chaveApp){
-		return contatoDAO.recuperarPorChaveClienteEAplicacao(chaveCliente, chaveApp);
-	}
-
-	
 	@GET
 	@Path("/listarPorClienteApp/{chaveCliente}/{chaveApp}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -68,8 +70,8 @@ public class ContatoClienteService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
-	public ContatoComCliente novoContato(Long idFormaPG, String chaveCliente, String chaveApp, String chaveProdutoServico,  
-											String chaveLivre, Integer qtdParcelas, Double valor) throws Exception{
+	public ContatoComCliente novoContato(String chaveCliente, String chaveApp, String chaveProdutoServico,  
+											String descricao, String formaContato) throws Exception{
 		
 		if(chaveApp == null || chaveCliente == null || chaveProdutoServico == null){
 			throw new InvalidParameterException("Parâmetros obrigatórios não enviados.");
@@ -81,18 +83,21 @@ public class ContatoClienteService {
 		
 		ProdutoServico ps = psDAO.recuperarPorChave(chaveProdutoServico);
 		
-		FormaPagamento fp = null;
-		if(idFormaPG != null){
-			fp = formaDAO.recuperarPorId(idFormaPG);
+		EnumFormaContato fp = null;
+		if(formaContato != null){
+			fp = EnumFormaContato.recuperarPorDescricao(formaContato);
 		}
 		
-		ContatoComCliente acordo = new ContatoComCliente();
-		acordo.setAplicacao(app);
-		acordo.setCliente(pessoa);
-		acordo.setPodutoServico(ps);
+		ContatoComCliente contato = new ContatoComCliente();
+		contato.setAplicacao(app);
+		contato.setCliente(pessoa);
+		contato.setPodutoServico(ps);
+		contato.setDataContato(new Date());
+		contato.setFormaContato(fp);
+		contato.setDescricao(descricao);
 		
-		return salvar(acordo);
-	}*/
+		return salvar(contato);
+	}
 
 	
 	@PUT
