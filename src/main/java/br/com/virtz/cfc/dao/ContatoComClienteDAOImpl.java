@@ -17,9 +17,18 @@ public class ContatoComClienteDAOImpl extends DAO<ContatoComCliente> implements 
 	}
 
 	@Override
-	public List<ContatoComCliente> recuperarPorChaveAplicacao(Long chaveAplicacao) {
+	public List<ContatoComCliente> recuperarPorChaveAplicacao(String chaveAplicacao) {
 		Query qry = getEntityManager().createNamedQuery("ContatoComCliente.recuperarPorChaveApp");
 		qry.setParameter("chaveAplicacao", chaveAplicacao);
+		return qry.getResultList();
+	}
+	
+	
+	@Override
+	public List<ContatoComCliente> recuperarPorChaveClienteEAplicacao(String chaveCliente, String chaveAplicacao) {
+		Query qry = getEntityManager().createNamedQuery("ContatoComCliente.recuperarPorChaveClienteApp");
+		qry.setParameter("chaveAplicacao", chaveAplicacao);
+		qry.setParameter("chaveCliente", chaveCliente);
 		return qry.getResultList();
 	}
 

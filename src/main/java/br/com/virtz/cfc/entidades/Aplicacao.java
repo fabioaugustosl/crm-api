@@ -20,6 +20,8 @@ import javax.ws.rs.BeanParam;
 import javax.ws.rs.FormParam;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.inject.persist.finder.MaxResults;
+
 
 @Entity
 @Table(name="aplicacao")
@@ -86,5 +88,13 @@ public class Aplicacao extends Entidade {
 	public void setSite(String site) {
 		this.site = site;
 	}
-	
+
+	public String getChave() {
+		return chave;
+	}
+
+	public void setChave(String chave) {
+		this.chave = chave;
+	}
+		
 }

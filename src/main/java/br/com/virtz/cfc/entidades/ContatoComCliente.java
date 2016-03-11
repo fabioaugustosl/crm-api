@@ -33,7 +33,10 @@ import br.com.virtz.cfc.contantes.EnumFormaContato;
 					+ " WHERE ct.aplicacao.id = :idAplicacao"),
 	@NamedQuery(name = "ContatoComCliente.recuperarPorChaveApp", 
 			query = "SELECT ct FROM ContatoComCliente ct "
-					+ " WHERE ct.aplicacao.chave = :chaveAplicacao"),
+					+ " WHERE ct.aplicacao.chave = :chaveAplicacao ORDER BY ct.id DESC"),
+	@NamedQuery(name = "ContatoComCliente.recuperarPorChaveClienteApp", 
+			query = "SELECT ct FROM ContatoComCliente ct "
+							+ " WHERE ct.aplicacao.chave = :chaveAplicacao AND ct.cliente = :chaveCliente ORDER BY ct.id DESC"),
 	@NamedQuery(name = "ContatoComCliente.recuperarPorId", 
 			query = "SELECT ct FROM ContatoComCliente ct "
 					+ " WHERE ct.id = :idContato")
