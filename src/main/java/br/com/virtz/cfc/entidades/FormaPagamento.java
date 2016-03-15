@@ -14,8 +14,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.jboss.resteasy.spi.StringConverter;
-
 @Entity
 @Table(name="formapagamento")
 @NamedQueries({
@@ -27,10 +25,14 @@ import org.jboss.resteasy.spi.StringConverter;
 					+ " WHERE fp.aplicacao.chave = :chaveAplicacao"),
 	@NamedQuery(name = "FormaPagamento.recuperarPorId", 
 			query = "SELECT fp FROM FormaPagamento fp "
-					+ " WHERE fp.id = :idFormaPagamento")
+					+ " WHERE fp.id = :idFormaPagamento"),
+	@NamedQuery(name = "FormaPagamento.recuperarPorChave", 
+			query = "SELECT fp FROM FormaPagamento fp "
+					+ " JOIN fp.aplicacao ap "
+					+ " WHERE fp.chave = :chaveFormaPagamento AND ap.chave = :chaveAplicacao")
 })
 @XmlRootElement
-public class FormaPagamento extends Entidade implements Serializable, StringConverter<FormaPagamento> {
+public class FormaPagamento extends Entidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,6 +45,12 @@ public class FormaPagamento extends Entidade implements Serializable, StringConv
 
 	@Column(name = "ativo")
 	private Boolean ativo;
+	
+	/**
+	 * Usado para facilitar a identificação da forma de pagamento pelo cliente da API. Essa sigla deve ser única por aplicação.
+	 */
+	@Column(name="chave", length=20, nullable=false)
+	private String chave;
 	
 	@ManyToOne
 	@JoinColumn(name="idAplicacao", nullable=false)
@@ -82,24 +90,12 @@ public class FormaPagamento extends Entidade implements Serializable, StringConv
 		this.aplicacao = aplicacao;
 	}
 
-	@Override
-	public FormaPagamento fromString(String str){
-		if(str!= null){
-			Long id = Long.valueOf(str);
-			FormaPagamento e = new FormaPagamento();
-			e.setId(id);
-			return e;
-			
-		} 
-		return null;
+	public String getChave() {
+		return chave;
 	}
 
-	@Override
-	public String toString(FormaPagamento value) {
-		if(this.getId()!= null){
-			return this.getId().toString();
-		}
-		return null;
+	public void setChave(String chave) {
+		this.chave = chave;
 	}
-		
+
 }

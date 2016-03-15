@@ -12,5 +12,6 @@ public interface FormaPagamentoDAO extends CrudDAO<FormaPagamento>   {
 	public List<FormaPagamento> recuperarPorAplicacao(Long idAplicacao);
 	public List<FormaPagamento> recuperarPorChaveAplicacao(String chaveAplicacao);
 	public FormaPagamento recuperarPorId(Long idFormaPagamento);
+	public FormaPagamento recuperarPorChave(String chaveFormaPagamento, String chaveAplicacao);
 	
 }

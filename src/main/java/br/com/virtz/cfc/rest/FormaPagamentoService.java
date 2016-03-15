@@ -1,7 +1,6 @@
 package br.com.virtz.cfc.rest;
 
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -14,7 +13,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import br.com.virtz.cfc.contantes.EnumFormaContato;
 import br.com.virtz.cfc.dao.AplicacaoDAO;
 import br.com.virtz.cfc.dao.FormaPagamentoDAO;
 import br.com.virtz.cfc.entidades.Aplicacao;
@@ -51,24 +49,18 @@ public class FormaPagamentoService {
 	
 	
 	@GET
-	@Path("/listarTipo}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<String> listarTiposFormasPG(){
-		List<String> tipos = new ArrayList<String>();
-		
-		for(EnumFormaContato f : EnumFormaContato.values()){
-			tipos.add(f.getDescricao());
-		}
-		
-		return tipos;
-	}
-	
-	
-	@GET
 	@Path("/listarPorChaveApp/{chaveApp}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<FormaPagamento> listarFormasPG(@PathParam("chaveApp") String chaveApp){
 		return formaDAO.recuperarPorChaveAplicacao(chaveApp);
+	}
+	
+	
+	@GET
+	@Path("/{chaveApp}/{chaveFP}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public FormaPagamento recuperarPorChaveFpEChaveApp(@PathParam("chaveApp") String chaveApp, @PathParam("chaveFP") String chaveFP){
+		return formaDAO.recuperarPorChave(chaveFP, chaveApp);
 	}
 	
 	

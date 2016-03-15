@@ -1,17 +1,10 @@
 package br.com.virtz.cfc.rest;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,19 +15,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.jboss.resteasy.annotations.Form;
-
 import br.com.virtz.cfc.contantes.EnumFormaContato;
-import br.com.virtz.cfc.dao.AcordoComClienteDAO;
 import br.com.virtz.cfc.dao.AplicacaoDAO;
 import br.com.virtz.cfc.dao.ClienteDAO;
 import br.com.virtz.cfc.dao.ContatoComClienteDAO;
-import br.com.virtz.cfc.dao.FormaPagamentoDAO;
 import br.com.virtz.cfc.dao.ProdutoServicoDAO;
-import br.com.virtz.cfc.entidades.AcordoComCliente;
 import br.com.virtz.cfc.entidades.Aplicacao;
 import br.com.virtz.cfc.entidades.ContatoComCliente;
-import br.com.virtz.cfc.entidades.FormaPagamento;
 import br.com.virtz.cfc.entidades.Pessoa;
 import br.com.virtz.cfc.entidades.ProdutoServico;
 
@@ -63,6 +50,20 @@ public class ContatoClienteService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ContatoComCliente> listarContatosDoClientePorApp(@PathParam("chaveCliente") String chaveCliente, @PathParam("chaveApp") String chaveApp){
 		return contatoDAO.recuperarPorChaveClienteEAplicacao(chaveCliente, chaveApp);
+	}
+	
+	
+	@GET
+	@Path("/listarTiposContato}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<String> listarTiposFormasPG(){
+		List<String> tipos = new ArrayList<String>();
+		
+		for(EnumFormaContato f : EnumFormaContato.values()){
+			tipos.add(f.getDescricao());
+		}
+		
+		return tipos;
 	}
 	
 
