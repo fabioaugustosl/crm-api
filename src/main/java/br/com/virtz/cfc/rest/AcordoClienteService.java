@@ -12,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import br.com.virtz.cfc.dao.AcordoComClienteDAO;
@@ -60,8 +61,13 @@ public class AcordoClienteService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
-	public AcordoComCliente novoAcordo(Long idFormaPG, String chaveCliente, String chaveApp, String chaveProdutoServico,  
-											String chaveLivre, Integer qtdParcelas, Double valor) throws Exception{
+	public AcordoComCliente novoAcordo(@QueryParam("idFormaPG") Long idFormaPG, 
+										@QueryParam("chaveCliente") String chaveCliente, 
+										@QueryParam("chaveApp") String chaveApp, 
+										@QueryParam("chaveProdutoServico") String chaveProdutoServico,  
+										@QueryParam("chaveLivre") String chaveLivre, 
+										@QueryParam("qtdParcelas") Integer qtdParcelas, 
+										@QueryParam("valor") Double valor) throws Exception{
 		
 		if(chaveApp == null || chaveCliente == null || chaveProdutoServico == null){
 			throw new InvalidParameterException("Parâmetros obrigatórios não enviados.");

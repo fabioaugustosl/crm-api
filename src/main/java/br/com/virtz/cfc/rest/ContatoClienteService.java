@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import br.com.virtz.cfc.contantes.EnumFormaContato;
@@ -71,8 +72,11 @@ public class ContatoClienteService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
-	public ContatoComCliente novoContato(String chaveCliente, String chaveApp, String chaveProdutoServico,  
-											String descricao, String formaContato) throws Exception{
+	public ContatoComCliente novoContato(	@QueryParam("email") String chaveCliente, 
+											@QueryParam("chaveApp") String chaveApp, 
+											@QueryParam("chaveProdutoServico") String chaveProdutoServico,
+											@QueryParam("descricao") String descricao, 
+											@QueryParam("formaContato") String formaContato) throws Exception{
 		
 		if(chaveApp == null || chaveCliente == null || chaveProdutoServico == null){
 			throw new InvalidParameterException("Parâmetros obrigatórios não enviados.");

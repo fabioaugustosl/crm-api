@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import br.com.virtz.cfc.dao.AplicacaoDAO;
@@ -36,7 +37,10 @@ public class AplicacaoService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
-	public Aplicacao novaAplicacao(String nome, String chave, String email, String site) throws Exception{
+	public Aplicacao novaAplicacao(@QueryParam("chaveCliente") String nome, 
+									@QueryParam("chave") String chave, 
+									@QueryParam("email") String email, 
+									@QueryParam("site") String site) throws Exception{
 		Aplicacao aplicacao = new Aplicacao();
 		aplicacao.setEmail(email);
 		aplicacao.setNome(nome);

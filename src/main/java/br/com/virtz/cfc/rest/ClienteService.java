@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import br.com.virtz.cfc.dao.AplicacaoDAO;
@@ -67,7 +68,11 @@ public class ClienteService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
-	public Pessoa criarCliente(String nome, String sobrenome, String email, String chave, String chaveApp) throws Exception{
+	public Pessoa criarCliente( 	@QueryParam("email") String nome, 
+									@QueryParam("sobrenome") String sobrenome, 
+									@QueryParam("email") String email, 
+									@QueryParam("chave") String chave, 
+									@QueryParam("chaveApp") String chaveApp) throws Exception{
 		if(chaveApp == null){
 			throw new Exception("Chave da aplicação é obrigatoria.");
 		}

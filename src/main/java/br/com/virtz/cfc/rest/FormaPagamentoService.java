@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import br.com.virtz.cfc.dao.AplicacaoDAO;
@@ -68,7 +69,7 @@ public class FormaPagamentoService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
-	public FormaPagamento novaFPG(String descricao, Long idAplicacao) throws Exception{
+	public FormaPagamento novaFPG(@QueryParam("descricao") String descricao, @QueryParam("idAplicacao") Long idAplicacao) throws Exception{
 		if(idAplicacao == null){
 			throw new InvalidParameterException("A aplicação da forma de pagamento é obrigatória");
 		}
